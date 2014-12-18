@@ -1,11 +1,13 @@
 ## Put comments here that give an overall description of what your
 ## functions do
+
 ## makeCacheMatrix(x) creates a vector of functions that share common environ-
 ## ment and in it the matrix x and the inverse of it "solved" these functions
 ## can then be used to get or store the matrix and its inverse.
 ## function set can be used to change the stored matrix (it deletes the cached 
 ## inverse in the process)
-## function cacheSolve makes use of this vector to 1. find out if there is al-
+
+## function cacheSolve() makes use of this vector to find out if there is al-
 ## ready a cached inverse present. if yes, it is returned, if not it is computed
 ## and stored. 
 
@@ -13,6 +15,7 @@
 ## Write a short comment describing this function
 
 makeCacheMatrix <- function(x = matrix()) {
+    ## Create set of functions that operate on on  matrix x.  
     solved <- NULL
     get <- function() x
     # allows setting a new matrix (deletes the cached version) 
@@ -31,9 +34,9 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
-## function cacheSolve makes use of this vector to 1. find out if there is al-
-## ready a cached inverse present. if yes, it is returned, if not it is computed
+
+## function cacheSolve makes use of this vector to find out if there is already
+## a cached inverse present. if yes, it is returned, if not it is computed
 ## and stored.
 
 cacheSolve <- function(x) {
@@ -53,22 +56,3 @@ cacheSolve <- function(x) {
         x$setSolved(solved)
         solved
     }
-
-#test case (must use solvable matrix)
-CacheMatrix<-makeCacheMatrix(matrix(c(1,2,10,2,10,2,1,2,1,1,
-                                      2,10,2,10,2,1,2,11,2,10,
-                                      2,10,2,1,2,11,2,10,2,10,
-                                      2,1,2,1,1,1),
-                                      6,6))
-
-# first run 
-cacheSolve(CacheMatrix)
-# second run
-cacheSolve(CacheMatrix)
-# store different matrix
-
-CacheMatrix$set(cacheSolve(CacheMatrix))
-# first run 
-cacheSolve(CacheMatrix)
-# second run
-cacheSolve(CacheMatrix)
